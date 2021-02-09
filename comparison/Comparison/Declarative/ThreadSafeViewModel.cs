@@ -1,9 +1,11 @@
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using Comparison.Common;
 using ReactiveUI;
 
 namespace Declarative
 {
-    public class ThreadSafeViewModel : ReactiveObject
+    public class ThreadSafeViewModel : ReactiveObject, IThreadSafeViewModel
     {
         private string _firstName;
         private string _lastName;
@@ -20,13 +22,13 @@ namespace Declarative
         public string FirstName
         {
             get => _firstName;
-            set => this.RaiseAndSetIfChanged(ref _firstName, value);
+            set => RxApp.MainThreadScheduler.Schedule(() => this.RaiseAndSetIfChanged(ref _firstName, value));
         }
 
         public string LastName
         {
-            get => _firstName;
-            set => this.RaiseAndSetIfChanged(ref _firstName, value);
+            get => _lastName;
+            set => RxApp.MainThreadScheduler.Schedule(() => this.RaiseAndSetIfChanged(ref _lastName, value));
         }
 
         public string FullName => _fullName.Value;

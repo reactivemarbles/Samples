@@ -8,4 +8,8 @@
       <PackageReference Include="ReactiveUI" Version="13.0.38" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Comparison.Common\Comparison.Common.csproj" />
+    </ItemGroup>
+
 </Project>
